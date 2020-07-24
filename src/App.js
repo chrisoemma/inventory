@@ -6,6 +6,7 @@ import Expense from "./components/settings/Expense";
 import ExpenseCategory from "./components/settings/ExpenseCategory";
 import Vendor from "./components/settings/vendors";
 import Outlet from "./components/settings/Outlets";
+import PaymentMethods from "./components/settings/PaymentMethods";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/settings/expenses_categories" component={ExpenseCategory} />
       <Route path="/settings/vendors" component={Vendor} />
       <Route path="/settings/outlets" component={Outlet} />
+      <Route path="/settings/payment_methods" component={PaymentMethods} />
       </React.Fragment>
     </Router>
   );

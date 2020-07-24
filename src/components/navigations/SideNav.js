@@ -250,11 +250,11 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Regions" />
           </ListItem> */}
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} component={Link} to="/settings/payment_methods">
             <ListItemIcon>
               <PaymentIcon />
             </ListItemIcon>
-            <ListItemText secondary="Payment method" />
+            <ListItemText secondary="Payment methods" />
           </ListItem>
           <ListItem button className={classes.nested} component={Link} 
           to="/settings/expenses_categories">
