@@ -250,13 +250,6 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Regions" />
           </ListItem> */}
-          <ListItem button className={classes.nested} component={Link} 
-          to="/settings/vendors">
-            <ListItemIcon>
-              <AccessibilityNewIcon />
-            </ListItemIcon>
-            <ListItemText secondary="Vendors" />
-          </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <PaymentIcon />
@@ -288,7 +281,15 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Account codes" />
           </ListItem>
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} component={Link} 
+          to="/settings/vendors">
+            <ListItemIcon>
+              <AccessibilityNewIcon />
+            </ListItemIcon>
+            <ListItemText secondary="Vendors" />
+          </ListItem>
+          <ListItem button className={classes.nested} component={Link} 
+          to="/settings/outlets">
             <ListItemIcon>
               <ShopIcon />
             </ListItemIcon>
