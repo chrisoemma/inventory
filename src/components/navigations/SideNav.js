@@ -7,7 +7,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import Dashboard from "@material-ui/icons/Dashboard";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -244,11 +243,13 @@ const SideNav = () => {
 
       <Collapse in={settingsOpen} timeout="auto" unmountOnExit>
         <List disablePadding>
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} component={Link} 
+          to="/settings/expenses_categories">
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Expense categories" />
+            <ListItemText secondary="Expense categories" 
+             />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>

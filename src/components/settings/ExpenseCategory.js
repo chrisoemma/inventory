@@ -14,26 +14,20 @@ import MaterialTable from "material-table";
 
 import axios from 'axios';
 
-const Expense = () => {
+const ExpenseCategory = () => {
+
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const [expense, setExpense] = React.useState({
+  const [expenseCategory, setExpenseCategory] = React.useState({
 
     columns: [
-      { title: "Expense", field: "name" },
-      {
-        title: "Expense Category",
-        field: "expenseCategoryId",
-        lookup: { 34: "Stationary", 63: "Production", 74: "Bottles" },
-      },
+	  { title: "Category Name", field: "name" },
+
     ],
     data: [
-      { name: "Bottle package", expenseCategoryId: 74 },
-      {
-        name: "printing labels",
-        expCategory: 34,
-      },
+	  { name: "Printing", id: 1},
+	  { name: "Bottles", id: 2},
     ],
   });
 
@@ -65,14 +59,14 @@ const Expense = () => {
                 <div style={{ maxWidth: "100%" }}>
                   <MaterialTable
                     title="Expense"
-                    columns={expense.columns}
-                    data={expense.data}
+                    columns={expenseCategory.columns}
+                    data={expenseCategory.data}
                     editable={{
                       onRowAdd: (newData) =>
                         new Promise((resolve) => {
                           setTimeout(() => {
                             resolve();
-                            setExpense((prevState) => {
+                            setExpenseCategory((prevState) => {
                               const data = [...prevState.data];
                               data.push(newData);
                               return { ...prevState, data };
@@ -84,7 +78,7 @@ const Expense = () => {
                           setTimeout(() => {
                             resolve();
                             if (oldData) {
-                              setExpense((prevState) => {
+								setExpenseCategory((prevState) => {
                                 const data = [...prevState.data];
                                 data[data.indexOf(oldData)] = newData;
                                 return { ...prevState, data };
@@ -96,7 +90,7 @@ const Expense = () => {
                         new Promise((resolve) => {
                           setTimeout(() => {
                             resolve();
-                            setExpense((prevState) => {
+                            setExpenseCategory((prevState) => {
                               const data = [...prevState.data];
                               data.splice(data.indexOf(oldData), 1);
                               return { ...prevState, data };
@@ -156,4 +150,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default Expense;
+export default ExpenseCategory;
