@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Dashboard from "./components/Dashbord";
 import Expense from "./components/settings/Expense";
 import ExpenseCategory from "./components/settings/ExpenseCategory";
+import Vendor from "./components/settings/vendors";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route exact path="/" component={Dashboard} />
       <Route path="/settings/expenses" component={Expense} />
       <Route path="/settings/expenses_categories" component={ExpenseCategory} />
+      <Route path="/settings/vendors" component={Vendor} />
       </React.Fragment>
     </Router>
   );

@@ -243,21 +243,15 @@ const SideNav = () => {
 
       <Collapse in={settingsOpen} timeout="auto" unmountOnExit>
         <List disablePadding>
-          <ListItem button className={classes.nested} component={Link} 
-          to="/settings/expenses_categories">
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText secondary="Expense categories" 
-             />
-          </ListItem>
-          <ListItem button className={classes.nested}>
+     
+          {/* <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText secondary="Regions" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
+          </ListItem> */}
+          <ListItem button className={classes.nested} component={Link} 
+          to="/settings/vendors">
             <ListItemIcon>
               <AccessibilityNewIcon />
             </ListItemIcon>
@@ -269,7 +263,14 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Payment method" />
           </ListItem>
-        
+          <ListItem button className={classes.nested} component={Link} 
+          to="/settings/expenses_categories">
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary="Expense categories" 
+             />
+          </ListItem>
 		 
 			  <ListItem button className={classes.nested} component={Link} to="/settings/expenses">
 			 
