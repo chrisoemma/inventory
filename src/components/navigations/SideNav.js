@@ -248,13 +248,13 @@ const SideNav = () => {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Products" />
+            <ListItemText secondary="Expense categories" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Bottles" />
+            <ListItemText secondary="Regions" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>

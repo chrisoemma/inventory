@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -12,31 +12,44 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import MaterialTable from "material-table";
 
-
+import axios from 'axios';
 
 const Expense = () => {
-
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const [expense, setExpense] = React.useState({
 
-  const [state, setState] = React.useState({
     columns: [
-      { title: 'Expense', field: 'name' },
+      { title: "Expense", field: "name" },
       {
-        title: 'Expense Category',
-        field: 'expCategory',
-        lookup: { 34: 'Stationary', 63: 'Production',74:'Bottles' },
+        title: "Expense Category",
+        field: "expenseCategoryId",
+        lookup: { 34: "Stationary", 63: "Production", 74: "Bottles" },
       },
     ],
     data: [
-      { name: 'Bottle package', expCategory: 74 },
+      { name: "Bottle package", expenseCategoryId: 74 },
       {
-        name: 'printing labels',
+        name: "printing labels",
         expCategory: 34,
       },
     ],
   });
+
+
+  useEffect(()=>{
+
+    axios.get("/api/v1/expenses")
+
+    .then(resp=>{
+      //setExpense(data:resp.data.data);
+      //alert(resp.data.data[0].name);
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+  })
 
   return (
     <div className={classes.root}>
@@ -49,53 +62,50 @@ const Expense = () => {
             {/* Chart */}
             <Grid item xs={12} md={10} lg={9}>
               <Paper className={fixedHeightPaper}>
-             
-
                 <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-      title="Expense"
-      columns={state.columns}
-      data={state.data}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
-    />
-      </div>
-   
+                  <MaterialTable
+                    title="Expense"
+                    columns={expense.columns}
+                    data={expense.data}
+                    editable={{
+                      onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            setExpense((prevState) => {
+                              const data = [...prevState.data];
+                              data.push(newData);
+                              return { ...prevState, data };
+                            });
+                          }, 600);
+                        }),
+                      onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            if (oldData) {
+                              setExpense((prevState) => {
+                                const data = [...prevState.data];
+                                data[data.indexOf(oldData)] = newData;
+                                return { ...prevState, data };
+                              });
+                            }
+                          }, 600);
+                        }),
+                      onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            setExpense((prevState) => {
+                              const data = [...prevState.data];
+                              data.splice(data.indexOf(oldData), 1);
+                              return { ...prevState, data };
+                            });
+                          }, 600);
+                        }),
+                    }}
+                  />
+                </div>
               </Paper>
             </Grid>
           </Grid>
@@ -129,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   fixedHeight: {
-    height: '100%',
+    height: "100%",
   },
 
   upperContent: {
@@ -144,7 +154,6 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-
 }));
 
 export default Expense;
