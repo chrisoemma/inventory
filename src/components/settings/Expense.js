@@ -15,27 +15,44 @@ import MaterialTable from "material-table";
 import axios from 'axios';
 
 const Expense = () => {
+
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const [expense, setExpense] = React.useState({
+  const [expense, setExpense] = React.useState([]);
+  const [iserror, setIserror] = React.useState(false)
+  const [errorMessages, setErrorMessages] = React.useState([])
 
-    columns: [
-      { title: "Expense", field: "name" },
-      {
-        title: "Expense Category",
-        field: "expenseCategoryId",
-        lookup: { 34: "Stationary", 63: "Production", 74: "Bottles" },
-      },
-    ],
-    data: [
-      { name: "Bottle package", expenseCategoryId: 74 },
-      {
-        name: "printing labels",
-        expCategory: 34,
-      },
-    ],
-  });
+
+  // {
+
+  //   columns: [
+  //     { title: "Expense", field: "name" },
+  //     {
+  //       title: "Expense Category",
+  //       field: "expenseCategoryId",
+  //       lookup: { 34: "Stationary", 63: "Production", 74: "Bottles" },
+  //     },
+  //   ],
+  //   data: [
+  //     { name: "Bottle package", expenseCategoryId: 74 },
+  //     {
+  //       name: "printing labels",
+  //       expCategory: 34,
+  //     },
+  //   ],
+  // }
+
+  let colums = [
+
+       {title: "id", field: "id", hidden: true},
+        { title: "Expense", field: "name" },
+        {
+          title: "Expense Category",
+          field: "expenseCategoryId",
+          lookup: { 34: "Stationary", 63: "Production", 74: "Bottles" },
+        },
+      ]
 
 
   useEffect(()=>{
