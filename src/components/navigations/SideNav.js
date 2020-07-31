@@ -27,6 +27,7 @@ const SideNav = () => {
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [stockOpen, setStockOpen] = React.useState(false);
   const [salesOpen, setSalesOpen] = React.useState(false);
+  const [purchaseOpen, setPurchaseOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -46,6 +47,10 @@ const SideNav = () => {
 
   const salesHandleClick = () => {
     setSalesOpen(!salesOpen);
+  };
+
+  const purchaseHandleClick = () => {
+    setPurchaseOpen(!purchaseOpen);
   };
 
   return (
@@ -71,12 +76,14 @@ const SideNav = () => {
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
-        <ListItemText primary="Stock Tracking" />
+        <ListItemText primary="Stock" />
         {stockOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
 
       <Collapse in={stockOpen} timeout="auto" unmountOnExit>
+     
         <List disablePadding>
+         
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
@@ -95,6 +102,7 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Spoiled coconuts" />
           </ListItem>
+          <Divider />
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <PaymentIcon />
@@ -136,43 +144,71 @@ const SideNav = () => {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Sales officer" />
+            <ListItemText secondary="New sale Quote" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Daily sales" />
+            <ListItemText secondary="New sale order" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <AccessibilityNewIcon />
             </ListItemIcon>
-            <ListItemText secondary="Vendors" />
+            <ListItemText secondary="Order list" />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <PaymentIcon />
+            </ListItemIcon>
+            <ListItemText secondary=" New Customer" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <PaymentIcon />
             </ListItemIcon>
-            <ListItemText secondary="Shop outlets" />
+            <ListItemText secondary="Customer list" />
+          </ListItem>
+        
+        </List>
+      </Collapse>
+
+      <ListItem button onClick={purchaseHandleClick}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Purchasing" />
+        {purchaseOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+
+      <Collapse in={purchaseOpen} timeout="auto" unmountOnExit>
+        <List disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary="Purchase order" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
-              <PaymentIcon />
+              <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Spoiled Oil" />
+            <ListItemText secondary="Purchase order list" />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary=" New Vendor" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
-              <CodeIcon />
+              <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Clean oil" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShopIcon />
-            </ListItemIcon>
-            <ListItemText secondary="packeged oil" />
+            <ListItemText secondary="Vendors list" />
           </ListItem>
         </List>
       </Collapse>
@@ -191,13 +227,13 @@ const SideNav = () => {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="New" />
+            <ListItemText secondary="New expense" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Previous" />
+            <ListItemText secondary="Expense list" />
           </ListItem>
         </List>
       </Collapse>
@@ -216,13 +252,34 @@ const SideNav = () => {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText secondary="Sales order details" />
           </ListItem>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary="UnStarred" />
+            <ListItemText secondary="Sales order profit details" />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary="Inventory" />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary="Customers " />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText secondary="Purchasing" />
           </ListItem>
         </List>
       </Collapse>
@@ -275,12 +332,12 @@ const SideNav = () => {
           </ListItem>
 		 
 
-          <ListItem button className={classes.nested}>
+          {/* <ListItem button className={classes.nested}>
             <ListItemIcon>
               <CodeIcon />
             </ListItemIcon>
             <ListItemText secondary="Account codes" />
-          </ListItem>
+          </ListItem> */}
           <ListItem button className={classes.nested} component={Link} 
           to="/settings/vendors">
             <ListItemIcon>

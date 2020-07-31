@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import AllNav from "../navigations/AllNav";
+import Alert from "@material-ui/lab/Alert";
 
 //import Button from "@material-ui/core/Button";
 //import { Formik } from "formik";
@@ -19,31 +20,126 @@ const ExpenseCategory = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const [expenseCategory, setExpenseCategory] = React.useState({
 
-    columns: [
-	  { title: "Category Name", field: "name" },
+  const [data, setData] = React.useState([]);
+  const [iserror, setIserror] = React.useState(false);
+  const [errorMessages, setErrorMessages] = React.useState([]);
 
-    ],
-    data: [
-	  { name: "Printing", id: 1},
-	  { name: "Bottles", id: 2},
-    ],
-  });
+   const  columns= [
+     { title: "id", field: "id", hidden: true },
+     { title: "Category Name", field: "name", },
+     { title: "Code", field: "code", type: 'numeric' },
+
+    ]
 
 
   useEffect(()=>{
 
-    axios.get("/api/v1/expenses")
+    axios.get("/api/v1/expense_categories")
 
     .then(resp=>{
-      //setExpense(data:resp.data.data);
+      setData(resp.data.data);
       //alert(resp.data.data[0].name);
     })
     .catch(error=>{
-      console.log(error);
+
+    setErrorMessages(["Cannot load data"]);
+    setIserror(true);
     })
-  })
+  },[]);
+
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    //validation
+    let errorList = []
+    if (newData.name === "") {
+      errorList.push("Please enter Category name");
+    }
+    if (newData.code === "") {
+      errorList.push("Please enter Code");
+    }
+
+  
+
+    if(errorList.length < 1){
+
+      axios.patch("/api/v1/expense_categories/update_expense_category/"+newData.id, newData)
+      .then(res => {
+        const dataUpdate = [...data];
+        const index = oldData.tableData.id;
+        dataUpdate[index] = newData;
+        setData([...dataUpdate]);
+        resolve()
+        setIserror(false)
+        setErrorMessages([])
+      })
+      .catch(error => {
+        setErrorMessages(["Update failed! Server error"])
+        setIserror(true)
+        resolve()
+        
+      })
+    }else{
+      setErrorMessages(errorList)
+      setIserror(true)
+      resolve()
+
+    }
+    
+  }
+
+
+
+  const handleRowAdd = (newData, resolve) => {
+    //validation
+    let errorList = [];
+    if (newData.name === undefined) {
+      errorList.push("Please enter Category name");
+    }
+    if (newData.code === undefined) {
+      errorList.push("Please enter Code");
+    }
+
+    if (errorList.length < 1) {
+      //no error
+      axios
+        .post("/api/v1/expense_categories/add_expense_category", newData)
+        .then((res) => {
+          let dataToAdd = [...data];
+          dataToAdd.push(newData);
+          setData(dataToAdd);
+          resolve();
+          setErrorMessages([]);
+          setIserror(false);
+        })
+        .catch((error) => {
+          setErrorMessages(["Cannot add data. Server error!"]);
+          setIserror(true);
+          resolve();
+        });
+    } else {
+      setErrorMessages(errorList);
+      setIserror(true);
+      resolve();
+    }
+  };
+
+  const handleRowDelete = (oldData, resolve) => {
+    axios
+      .delete("/api/v1/expense_categories/delete_expense_category/" + oldData.id)
+      .then((res) => {
+        const dataDelete = [...data];
+        const index = oldData.tableData.id;
+        dataDelete.splice(index, 1);
+        setData([...dataDelete]);
+        resolve();
+      })
+      .catch((error) => {
+        setErrorMessages(["Delete failed! Server error"]);
+        setIserror(true);
+        resolve();
+      });
+  };
+
 
   return (
     <div className={classes.root}>
@@ -57,45 +153,37 @@ const ExpenseCategory = () => {
             <Grid item xs={12} md={10} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <div style={{ maxWidth: "100%" }}>
-                  <MaterialTable
-                    title="Expense"
-                    columns={expenseCategory.columns}
-                    data={expenseCategory.data}
+
+                <div>
+                    {iserror && (
+                      <Alert severity="error">
+                        {errorMessages.map((msg, i) => {
+                          return <div key={i}>{msg}</div>;
+                        })}
+                      </Alert>
+                    )}
+                  </div>
+
+
+                <MaterialTable
+                    title="Payment Method"
+                    columns={columns}
+                    data={data}
                     editable={{
+
+                      onRowUpdate: (newData, oldData) =>
+                      new Promise((resolve) => {
+                          handleRowUpdate(newData, oldData, resolve);
+                          
+                      }),
                       onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                          setTimeout(() => {
-                            resolve();
-                            setExpenseCategory((prevState) => {
-                              const data = [...prevState.data];
-                              data.push(newData);
-                              return { ...prevState, data };
-                            });
-                          }, 600);
+                          handleRowAdd(newData, resolve);
                         }),
-                      onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve) => {
-                          setTimeout(() => {
-                            resolve();
-                            if (oldData) {
-								setExpenseCategory((prevState) => {
-                                const data = [...prevState.data];
-                                data[data.indexOf(oldData)] = newData;
-                                return { ...prevState, data };
-                              });
-                            }
-                          }, 600);
-                        }),
+                  
                       onRowDelete: (oldData) =>
                         new Promise((resolve) => {
-                          setTimeout(() => {
-                            resolve();
-                            setExpenseCategory((prevState) => {
-                              const data = [...prevState.data];
-                              data.splice(data.indexOf(oldData), 1);
-                              return { ...prevState, data };
-                            });
-                          }, 600);
+                          handleRowDelete(oldData, resolve);
                         }),
                     }}
                   />

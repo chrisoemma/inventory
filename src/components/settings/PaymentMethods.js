@@ -60,7 +60,7 @@ const PaymentMethods = () => {
         const dataUpdate = [...data];
         const index = oldData.tableData.id;
         dataUpdate[index] = newData;
-        setData([...dataUpdate]);
+        setData(dataUpdate);
         resolve()
         setIserror(false)
         setErrorMessages([])
@@ -86,7 +86,7 @@ const PaymentMethods = () => {
     //validation
     let errorList = [];
     if (newData.name === undefined) {
-      errorList.push("Please enter name");
+      errorList.push("Please enter Expense Name");
     }
 
     if (errorList.length < 1) {
@@ -94,9 +94,7 @@ const PaymentMethods = () => {
       axios
         .post("/api/v1/payment_methods/new_payment_method", newData)
         .then((res) => {
-          let dataToAdd = [...data];
-          dataToAdd.push(newData);
-          setData(dataToAdd);
+          setData([...data, newData]);
           resolve();
           setErrorMessages([]);
           setIserror(false);
