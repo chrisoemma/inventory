@@ -7,6 +7,8 @@ import ExpenseCategory from "./components/settings/ExpenseCategory";
 import Vendor from "./components/settings/vendors";
 import Outlet from "./components/settings/Outlets";
 import PaymentMethods from "./components/settings/PaymentMethods";
+import NewCoconuts from "./components/stock/NewCoconuts";
+
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/settings/vendors" component={Vendor} />
       <Route path="/settings/outlets" component={Outlet} />
       <Route path="/settings/payment_methods" component={PaymentMethods} />
+
+      <Route path="/stocks/new_coconuts" component={NewCoconuts} />
       </React.Fragment>
     </Router>
   );

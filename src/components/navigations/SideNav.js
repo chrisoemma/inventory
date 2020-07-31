@@ -84,7 +84,7 @@ const SideNav = () => {
      
         <List disablePadding>
          
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} component={Link} to="/stocks/new_coconuts">
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
