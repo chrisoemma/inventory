@@ -17,13 +17,12 @@ import { Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import NoteIcon from "@material-ui/icons/Note";
 import ClearIcon from "@material-ui/icons/Clear";
-const NewCoconuts = () => {
+const CoconutDrawer = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
-      <AllNav />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
 
@@ -291,4 +290,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default NewCoconuts;
+export default CoconutDrawer;

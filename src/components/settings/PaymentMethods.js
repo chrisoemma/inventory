@@ -27,7 +27,6 @@ const PaymentMethods = () => {
     { title: "Payment Method", field: "name" },
   ];
 
-
   useEffect(() => {
     axios
       .get("/api/v1/payment_methods")
@@ -42,45 +41,39 @@ const PaymentMethods = () => {
       });
   }, []);
 
-
-
   const handleRowUpdate = (newData, oldData, resolve) => {
     //validation
-    let errorList = []
-    if(newData.name === ""){
-      errorList.push("Please enter  name")
+    let errorList = [];
+    if (newData.name === "") {
+      errorList.push("Please enter  name");
     }
 
-  
-
-    if(errorList.length < 1){
-
-      axios.patch("/api/v1/payment_methods/edit_payment_method/"+newData.id, newData)
-      .then(res => {
-        const dataUpdate = [...data];
-        const index = oldData.tableData.id;
-        dataUpdate[index] = newData;
-        setData(dataUpdate);
-        resolve()
-        setIserror(false)
-        setErrorMessages([])
-      })
-      .catch(error => {
-        setErrorMessages(["Update failed! Server error"])
-        setIserror(true)
-        resolve()
-        
-      })
-    }else{
-      setErrorMessages(errorList)
-      setIserror(true)
-      resolve()
-
+    if (errorList.length < 1) {
+      axios
+        .patch(
+          "/api/v1/payment_methods/edit_payment_method/" + newData.id,
+          newData
+        )
+        .then((res) => {
+          const dataUpdate = [...data];
+          const index = oldData.tableData.id;
+          dataUpdate[index] = newData;
+          setData(dataUpdate);
+          resolve();
+          setIserror(false);
+          setErrorMessages([]);
+        })
+        .catch((error) => {
+          setErrorMessages(["Update failed! Server error"]);
+          setIserror(true);
+          resolve();
+        });
+    } else {
+      setErrorMessages(errorList);
+      setIserror(true);
+      resolve();
     }
-    
-  }
-
-
+  };
 
   const handleRowAdd = (newData, resolve) => {
     //validation
@@ -155,17 +148,15 @@ const PaymentMethods = () => {
                     columns={columns}
                     data={data}
                     editable={{
-
                       onRowUpdate: (newData, oldData) =>
-                      new Promise((resolve) => {
+                        new Promise((resolve) => {
                           handleRowUpdate(newData, oldData, resolve);
-                          
-                      }),
+                        }),
                       onRowAdd: (newData) =>
                         new Promise((resolve) => {
                           handleRowAdd(newData, resolve);
                         }),
-                  
+
                       onRowDelete: (oldData) =>
                         new Promise((resolve) => {
                           handleRowDelete(oldData, resolve);

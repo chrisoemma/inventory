@@ -18,7 +18,7 @@ import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import CodeIcon from "@material-ui/icons/Code";
 import ShopIcon from "@material-ui/icons/Shop";
 import ReportIcon from "@material-ui/icons/Report";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const SideNav = () => {
   const classes = useStyles();
@@ -81,26 +81,24 @@ const SideNav = () => {
       </ListItem>
 
       <Collapse in={stockOpen} timeout="auto" unmountOnExit>
-     
         <List disablePadding>
-         
-          <ListItem button className={classes.nested} component={Link} to="/stocks/new_coconuts">
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/stocks/new_coconuts"
+          >
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText secondary="New coconuts" />
           </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText secondary="Used coconuts" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested}   component={Link}
+            to="/stocks/coconuts_list">
             <ListItemIcon>
               <AccessibilityNewIcon />
             </ListItemIcon>
-            <ListItemText secondary="Spoiled coconuts" />
+            <ListItemText secondary="Coconuts list" />
           </ListItem>
           <Divider />
           <ListItem button className={classes.nested}>
@@ -171,7 +169,6 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Customer list" />
           </ListItem>
-        
         </List>
       </Collapse>
 
@@ -300,37 +297,46 @@ const SideNav = () => {
 
       <Collapse in={settingsOpen} timeout="auto" unmountOnExit>
         <List disablePadding>
-     
           {/* <ListItem button className={classes.nested}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText secondary="Regions" />
           </ListItem> */}
-          <ListItem button className={classes.nested} component={Link} to="/settings/payment_methods">
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/settings/payment_methods"
+          >
             <ListItemIcon>
               <PaymentIcon />
             </ListItemIcon>
             <ListItemText secondary="Payment methods" />
           </ListItem>
-          <ListItem button className={classes.nested} component={Link} 
-          to="/settings/expenses_categories">
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/settings/expenses_categories"
+          >
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText secondary="Expense categories" 
-             />
+            <ListItemText secondary="Expense categories" />
           </ListItem>
-		 
-			  <ListItem button className={classes.nested} component={Link} to="/settings/expenses">
-			 
+
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/settings/expenses"
+          >
             <ListItemIcon>
               <PaymentIcon />
             </ListItemIcon>
             <ListItemText secondary="Expenses" />
-			
           </ListItem>
-		 
 
           {/* <ListItem button className={classes.nested}>
             <ListItemIcon>
@@ -338,15 +344,23 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText secondary="Account codes" />
           </ListItem> */}
-          <ListItem button className={classes.nested} component={Link} 
-          to="/settings/vendors">
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/settings/vendors"
+          >
             <ListItemIcon>
               <AccessibilityNewIcon />
             </ListItemIcon>
             <ListItemText secondary="Vendors" />
           </ListItem>
-          <ListItem button className={classes.nested} component={Link} 
-          to="/settings/outlets">
+          <ListItem
+            button
+            className={classes.nested}
+            component={Link}
+            to="/settings/outlets"
+          >
             <ListItemIcon>
               <ShopIcon />
             </ListItemIcon>

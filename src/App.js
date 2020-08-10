@@ -8,6 +8,7 @@ import Vendor from "./components/settings/vendors";
 import Outlet from "./components/settings/Outlets";
 import PaymentMethods from "./components/settings/PaymentMethods";
 import NewCoconuts from "./components/stock/NewCoconuts";
+import CoconutLit from "./components/stock/CoconutList";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path="/settings/payment_methods" component={PaymentMethods} />
 
       <Route path="/stocks/new_coconuts" component={NewCoconuts} />
+      <Route path="/stocks/coconuts_list" component={CoconutLit} />
       </React.Fragment>
     </Router>
   );
